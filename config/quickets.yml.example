@@ -1,0 +1,5 @@
+api_key: "123"
+printers:
+  - CPJ1
+  - CPJ2
+  - ADL TEST
