@@ -14,10 +14,9 @@ Quickets.logger.error "No QUICKETS_DIR set" if ENV['QUICKETS_DIR'].nil?
 
 module Quickets
   class App < Roda
-    plugin :json
-    plugin :error_handler do |e|
-      { error: e.message }
-    end
+    plugin :json_parser # request parse
+    plugin :json        # response to_json
+    plugin :error_handler
 
     route do |r|
       r.root do
@@ -40,6 +39,11 @@ module Quickets
           {status: 'ok'}
         end
       end
+    end
+
+    error do |e|
+      Quickets.logger.error e
+      { error: e.message }
     end
   end
 end
