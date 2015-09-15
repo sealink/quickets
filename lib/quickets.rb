@@ -3,6 +3,7 @@ require "quickets/logger"
 
 # Web framework
 require "roda"
+require "quickets/available_printers"
 
 # Interface to java lib
 require "java"
@@ -28,8 +29,7 @@ module Quickets
         fail ArgumentError, 'Invalid API key' if config.api_key != r['api_key']
 
         r.on 'printers' do
-          installed_printers = PrintServiceLocator.new.all.map(&:name)
-          config.printers & installed_printers # retains ordering of config
+          AvailablePrinters.all(r['api_key'])
         end
 
         r.post "print-tickets" do
