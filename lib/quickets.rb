@@ -1,9 +1,3 @@
-# Setup base yamload dir
-require 'yamload'
-
-current_file_dir = File.expand_path(File.dirname(__FILE__))
-Yamload.dir = File.expand_path(File.join(current_file_dir, '..', 'config'))
-
 require "quickets/config"
 require "quickets/logger"
 

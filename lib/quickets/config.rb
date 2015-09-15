@@ -1,11 +1,9 @@
-require 'yamload'
+require 'yaml'
 
 module Quickets
   class Config
     def initialize
-      # Yamload::Loader.new("quickets").content
       @config = YAML.load_file ENV['QUICKETS_CONFIG_FILE']
-      #"config/quickets.yml"
     end
 
     def api_key
