@@ -31,6 +31,15 @@ holding the configuration file.
 The puma cli has been copy-pasted to exe/quickets to allow simpler gem
 install then run.
 
+Warbler is also configured which will package up the jruby app along
+with the jetty web server -- to use it:
+
+    warble executable war
+    QUICKETS_DIR=~/quickets/config java -jar quickets.war
+
+Note that the java web server can't use a relative QUICKETS_DIR since it
+will unpack the jar into a tmp directory.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
