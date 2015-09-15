@@ -3,6 +3,15 @@
 Ticket printing web service -- useful for printing from the browser
 directly from javascript.
 
+Exposes the following http API:
+
+    GET  /               Returns a string
+    GET  /printers       Returns a list of printer names
+    POST /print-tickets  Prints the given tickets to the specifically
+                         named printer
+
+In all but the simple "/" path, an api_key is required.
+
 ## Installation
 
 This is a jruby gem and require Java 1.7+.
@@ -21,7 +30,7 @@ Or install it yourself as:
 
     $ gem install quickets
 
-## Usage
+## Running
 
 The QUICKETS_DIR env var must be set, which points to the directory
 holding the configuration file.
@@ -39,6 +48,21 @@ with the jetty web server -- to use it:
 
 Note that the java web server can't use a relative QUICKETS_DIR since it
 will unpack the jar into a tmp directory.
+
+## Configuration
+
+Configuration is through a quickets.yml file which should be in the
+directory specified by QUICKETS_DIR.
+
+This file contains a map where the keys are api keys, and the values are
+printer names. An examples:
+
+    wharf-api12345ZSDFLKJSFD:
+      - Front Counter Printer
+      - Ticket Office Printer
+
+The printer names given should match exactly as defined in your systems
+printer configuration.
 
 ## Development
 
