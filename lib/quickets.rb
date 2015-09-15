@@ -1,16 +1,20 @@
+require "roda"
+
+require "pathname"
 require "quickets/config"
 require "quickets/logger"
 
-# Web framework
-require "roda"
 require "quickets/available_printers"
 
+# Config
 # Interface to java lib
 require "java"
 require "jars/ticket_printer-1.2.0-jar-with-dependencies.jar"
 java_import com.quicktravel.ticket_printer.PrintServiceLocator
 java_import com.quicktravel.ticket_printer.TicketPrintCommand
 Quickets.logger.error "No QUICKETS_DIR set" if ENV['QUICKETS_DIR'].nil?
+quickets_dir = Pathname.new ENV['QUICKETS_DIR']
+Quickets.configure(quickets_dir.join("quickets.yml"))
 
 module Quickets
   class App < Roda
@@ -24,8 +28,7 @@ module Quickets
       end
 
       r.on do
-        config = Quickets::Config.new
-        fail ArgumentError, 'Invalid API key' if config.api_key != r['api_key']
+        Quickets.config.check_api_key!(r['api_key'])
 
         r.on 'printers' do
           AvailablePrinters.all(r['api_key'])

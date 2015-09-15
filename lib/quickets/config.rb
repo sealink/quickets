@@ -1,17 +1,32 @@
 require 'yaml'
 
 module Quickets
+  def self.configure(file_name)
+    @config = Config.new(YAML.load_file(file_name))
+  end
+
+  def self.config
+    @config
+  end
+
   class Config
-    def initialize
-      @config = YAML.load_file ENV['QUICKETS_CONFIG_FILE']
+    attr_reader :printers
+
+    def initialize(printers_by_api_key)
+      @printers_by_api_key = printers_by_api_key
     end
 
-    def api_key
-      @config.fetch('api_key')
+    def check_api_key!(api_key)
+      return if valid_api_key? api_key
+      fail ArgumentError, 'Invalid API key'
     end
 
-    def printers
-      @config.fetch('printers')
+    def valid_api_key?(api_key)
+      @printers_by_api_key.key? api_key
+    end
+
+    def printers_for(api_key)
+      @printers_by_api_key.fetch(api_key)
     end
   end
 end
