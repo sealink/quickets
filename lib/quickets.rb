@@ -5,6 +5,7 @@ current_file_dir = File.expand_path(File.dirname(__FILE__))
 Yamload.dir = File.expand_path(File.join(current_file_dir, '..', 'config'))
 
 require "quickets/config"
+require "quickets/logger"
 
 # Web framework
 require "roda"
@@ -14,6 +15,7 @@ require "java"
 require "jars/ticket_printer-1.2.0-jar-with-dependencies.jar"
 java_import com.quicktravel.ticket_printer.PrintServiceLocator
 java_import com.quicktravel.ticket_printer.TicketPrintCommand
+Quickets.logger.error "No QUICKETS_DIR set" if ENV['QUICKETS_DIR'].nil?
 
 module Quickets
   class App < Roda
