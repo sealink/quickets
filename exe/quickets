@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+
+# Copy from bin/puma
+require 'puma/cli'
+cli = Puma::CLI.new ARGV
+cli.run
