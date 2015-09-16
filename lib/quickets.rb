@@ -8,8 +8,14 @@ require "quickets/ticket_printer"
 require "quickets/available_printers"
 
 # Config
-Quickets.logger.error "No QUICKETS_DIR set" if ENV['QUICKETS_DIR'].nil?
-quickets_dir = Pathname.new ENV['QUICKETS_DIR']
+quickets_dir = Pathname.new(
+  if ENV['QUICKETS_DIR'].nil? || ENV['QUICKETS_DIR'] == ""
+    Quickets.logger.warn "No QUICKETS_DIR set, using /quickets"
+    "/quickets"
+  else
+    ENV['QUICKETS_DIR']
+  end
+)
 Quickets.configure(quickets_dir.join("quickets.yml"))
 
 module Quickets
