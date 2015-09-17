@@ -27,7 +27,7 @@ module Quickets
 
     route do |r|
       r.root do
-        "Hello I am Quickets"
+        "Quickets #{Quickets::VERSION}"
       end
 
       r.on do
