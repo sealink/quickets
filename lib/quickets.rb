@@ -30,6 +30,10 @@ module Quickets
         "Quickets #{Quickets::VERSION}"
       end
 
+      r.on 'favicon.ico' do
+        nil
+      end
+
       r.on do
         Quickets.config.check_api_key!(r['api_key'])
 
