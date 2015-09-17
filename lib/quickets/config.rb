@@ -10,8 +10,6 @@ module Quickets
   end
 
   class Config
-    attr_reader :printers
-
     def initialize(printers_by_api_key)
       @printers_by_api_key = printers_by_api_key
     end
