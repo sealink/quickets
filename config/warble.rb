@@ -11,13 +11,15 @@ Warbler::Config.new do |config|
   # config.features = %w(gemjar)
 
   # Application directories to be included in the webapp.
-  # config.dirs = %w(app config db lib log script vendor tmp)
+  config.dirs = %w(lib)
 
   # Additional files/directories to include, above those in config.dirs
   # config.includes = FileList["db"]
+  config.includes = FileList["config.ru"]
 
   # Additional files/directories to exclude
   # config.excludes = FileList["lib/tasks/*"]
+  config.excludes = FileList["quickets.gemspec"]
 
   # Additional Java .jar files to include.  Note that if .jar files are placed
   # in lib (and not otherwise excluded) then they need not be mentioned here.
@@ -53,7 +55,7 @@ Warbler::Config.new do |config|
   # config.gems << "tzinfo"
 
   # Uncomment this if you don't want to package rails gem.
-  # config.gems -= ["rails"]
+   config.gems -= ["rails"]
 
   # The most recent versions of gems are used.
   # You can specify versions of gems by using a hash assignment:
@@ -78,13 +80,13 @@ Warbler::Config.new do |config|
 
   # Name of the archive (without the extension). Defaults to the basename
   # of the project directory.
-  # config.jar_name = "mywar"
+  config.jar_name = "ROOT"
 
   # File extension for the archive. Defaults to either 'jar' or 'war'.
   # config.jar_extension = "jar"
 
   # Destionation for the created archive. Defaults to project's root directory.
-  # config.autodeploy_dir = "dist/"
+  config.autodeploy_dir = "dist/"
 
   # Name of the MANIFEST.MF template for the war file. Defaults to a simple
   # MANIFEST.MF that contains the version of Warbler used to create the war file.
@@ -153,6 +155,7 @@ Warbler::Config.new do |config|
 
   # Application booter to use, one of :rack, :rails, or :merb (autodetected by default)
   # config.webxml.booter = :rails
+  config.webxml.booter = :rack
 
   # Set JRuby to run in 1.9 mode.
   # config.webxml.jruby.compat.version = "1.9"
