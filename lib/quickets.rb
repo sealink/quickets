@@ -1,6 +1,7 @@
 require "roda"
 
 require "pathname"
+require "quickets/version"
 require "quickets/config"
 require "quickets/logger"
 

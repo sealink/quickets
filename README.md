@@ -12,33 +12,17 @@ Exposes the following http API:
 
 In all but the simple "/" path, an api_key is required.
 
-## Installation
+Note:
 
-This is a jruby gem and require Java 1.7+.
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'quickets'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install quickets
+This is a jruby app and require Java 1.7+.
 
 ## Running
 
 The QUICKETS_DIR env var must be set, which points to the directory
-holding the configuration file.
+holding the configuration file. If not set, it is defaulted to `/quickets`
+which on windows is the same as `C:\quickets`.
 
-    QUICKETS_DIR=./config bundle exec puma
-
-The puma cli has been copy-pasted to exe/quickets to allow simpler gem
-install then run.
+    QUICKETS_DIR=./config bin/rackup
 
 Warbler is also configured which will package up the jruby app along
 with the jetty web server -- to use it:
@@ -46,8 +30,16 @@ with the jetty web server -- to use it:
     warble executable war
     QUICKETS_DIR=~/quickets/config java -jar quickets.war
 
-Note that the java web server can't use a relative QUICKETS_DIR since it
-will unpack the jar into a tmp directory.
+The 'executable' param embeds jetty for cmd line run.
+
+## Prod deployment
+
+* Run `gem install warbler` to get the warbler utilitiy
+* Run `warble war` to build dist/ROOT.war (note no "R" in the cmd)
+* Copy dist/ROOT.war to your java app servers webapp dir
+
+The war file will be unpacked and available on root (at least for
+tomcat).
 
 ## Configuration
 
@@ -66,19 +58,24 @@ printer configuration.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bundle` to install dependencies.
+Then, run `rake spec` to run the tests.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 Depends on [sealink/ticket_printer](https://github.com/sealink/ticket_printer)
-which is compiled, then built into a single jar, and exists in lib/jars.
+which is compiled, then built into a single jar, and has been copied in lib/jars.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/quickets. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/[USERNAME]/quickets. This project is intended to be a safe,
+welcoming space for collaboration, and contributors are expected to adhere to the
+[Contributor Covenant](contributor-covenant.org) code of conduct.
 
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the
+[MIT License](http://opensource.org/licenses/MIT).
 
