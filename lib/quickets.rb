@@ -9,7 +9,7 @@ require "quickets/ticket_printer"
 require "quickets/available_printers"
 
 # Config
-quickets_dir = Pathname.new(
+$quickets_dir = Pathname.new(
   if ENV['QUICKETS_DIR'].nil? || ENV['QUICKETS_DIR'] == ""
     Quickets.logger.warn "No QUICKETS_DIR set, using /quickets"
     "/quickets"
@@ -17,7 +17,7 @@ quickets_dir = Pathname.new(
     ENV['QUICKETS_DIR']
   end
 )
-Quickets.configure(quickets_dir.join("quickets.yml"))
+Quickets.configure($quickets_dir.join("quickets.yml"))
 
 module Quickets
   class App < Roda
@@ -46,6 +46,19 @@ module Quickets
             response.status = 500
             {error: "Unknown printer: [#{ticket_printer.printer_name}]"}
           end
+        end
+
+        r.on 'config' do
+          Quickets.configure($quickets_dir.join("quickets.yml"))
+          printers = Quickets.config.printers_for(r['api_key'])
+          installed = AvailablePrinters.installed_printers
+
+          "<h1>Reloaded config</h1>
+           <h3>Config for Api Key supplied</h3>
+             #{printers.map{ |printer_name|
+                printer_name + "#{' <b>NOT INSTALLED</b>' unless installed.include? printer_name}"
+              }.join("<br/>")}
+          "
         end
       end
     end
