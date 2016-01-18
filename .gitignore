@@ -8,3 +8,6 @@
 /pkg/
 /spec/reports/
 /tmp/
+/vendor
+/docker-compose.yml
+/pdf

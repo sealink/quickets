@@ -1,0 +1,10 @@
+self:
+  build: .
+  dockerfile: containers/self/Dockerfile
+  environment:
+    API_KEY: api-key-goes-here
+    PRINTER_NAME: cups-pdf
+  volumes:
+    - .bn/pdf:/root/PDF
+  ports:
+    - 9292:9292
