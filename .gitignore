@@ -1,7 +1,6 @@
 /config/quickets.yml
 /.bundle/
 /.yardoc
-/Gemfile.lock
 /_yardoc/
 /coverage/
 /doc/
