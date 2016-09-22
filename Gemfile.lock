@@ -1,0 +1,18 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rack (1.6.4)
+    rack-cors (0.4.0)
+    roda (2.18.0)
+      rack
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  rack (~> 1.6.4)
+  rack-cors
+  roda
+
+BUNDLED WITH
+   1.13.1
